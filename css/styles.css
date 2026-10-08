@@ -335,12 +335,20 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Responsive Utilities */
 @media (max-width: 992px) {
-  section { padding: 70px 0; }
-  .section-title { font-size: 2.25rem; }
+  section { padding: 60px 0; }
+  .section-title { font-size: 2.2rem; }
+}
+
+@media (max-width: 768px) {
+  section { padding: 50px 0; }
+  .section-title { font-size: 1.9rem; }
+  .section-subtitle { font-size: 1rem; margin-bottom: 36px; }
 }
 
 @media (max-width: 576px) {
-  .section-title { font-size: 1.85rem; }
-  .container { padding: 0 18px; }
+  section { padding: 40px 0; }
+  .section-title { font-size: 1.6rem; line-height: 1.3; }
+  .section-subtitle { font-size: 0.92rem; margin-bottom: 28px; }
+  .container { padding: 0 16px; }
   .btn { width: 100%; }
 }
