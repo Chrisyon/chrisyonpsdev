@@ -123,25 +123,67 @@ const portfolioData = {
 
   // Skills List
   skills: [
+    { name: "Java 17 & Spring Boot 3", level: 93, category: "backend", icon: "🌱" },
+    { name: "React 18 & TypeScript", level: 90, category: "frontend", icon: "⚛️" },
+    { name: "MySQL 8.0 & Flyway Migration", level: 88, category: "backend", icon: "🐬" },
     { name: "Android Development (Kotlin)", level: 95, category: "mobile", icon: "🤖" },
     { name: "Jetpack Compose & Android SDK", level: 92, category: "mobile", icon: "📱" },
     { name: "Python & MicroPython (IoT)", level: 92, category: "iot", icon: "🐍" },
     { name: "IoT & Embedded Systems (Raspberry Pi / ESP32)", level: 90, category: "iot", icon: "📡" },
-    { name: "Java & Eclipse Enterprise", level: 90, category: "backend", icon: "☕" },
+    { name: "Spring Security & JWT Auth", level: 90, category: "backend", icon: "🔐" },
     { name: "Node.js & Express.js Backend", level: 88, category: "backend", icon: "🟢" },
     { name: "PHP / Laravel Framework", level: 85, category: "backend", icon: "🔴" },
-    { name: "React.js & Next.js Web", level: 88, category: "frontend", icon: "⚛️" },
-    { name: "TypeScript / JavaScript ES6+", level: 90, category: "frontend", icon: "🟨" },
     { name: "REST APIs & Microservices", level: 90, category: "backend", icon: "⚡" },
     { name: "PostgreSQL & MongoDB", level: 85, category: "backend", icon: "🛢️" },
     { name: "Firebase & Azure Custom Vision", level: 88, category: "backend", icon: "🔥" },
-    { name: "Android Studio & Gradle", level: 95, category: "devops", icon: "🛠️" },
-    { name: "Git, GitHub & Postman", level: 92, category: "devops", icon: "🚀" },
-    { name: "Docker & Cloud Hosting", level: 80, category: "devops", icon: "🐳" },
+    { name: "Docker & Docker Compose", level: 86, category: "devops", icon: "🐳" },
+    { name: "Git, GitHub & Postman", level: 92, category: "devops", icon: "🚀" }
   ],
 
   // Projects List
   projects: [
+    {
+      id: "proj-stockflow",
+      title: "StockFlow — Inventory & Sales Management System",
+      category: "web",
+      logoBadgeText: "STOCKFLOW",
+      logoSubtext: "POS & INVENTORY",
+      logoIcon: "📦",
+      logoGradient: "linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(0, 243, 255, 0.25) 100%)",
+      accentColor: "#10b981",
+      githubUrl: "https://github.com/Chrisyon/stockflow",
+      tags: ["Java 17", "Spring Boot 3", "React 18", "TypeScript", "MySQL 8.0", "Docker", "Flyway", "JWT"],
+      desc: {
+        id: "Aplikasi Kasir (POS) & Manajemen Inventori toko berbasis Web modern untuk UMKM / Retail. Berbasis arsitektur backend industri Java Spring Boot 3 + Spring Security JWT + MySQL Pessimistic Locking + Flyway DB, dan frontend React 18 + TypeScript + Tailwind CSS. Fitur unggulan: Zero-Trust Pricing, Concurrency Safety (FOR UPDATE), Atomic Checkout Transactions, Laporan Profit Eksekutif, Ekspor CSV & Cetak Struk.",
+        en: "Modern Web-based Inventory & Point of Sale (POS) Management System for Retail/MSMEs. Built with enterprise-grade Java Spring Boot 3 + Spring Security JWT + MySQL Pessimistic Locking + Flyway DB backend, and React 18 + TypeScript + Tailwind CSS frontend. Features Zero-Trust Pricing, Concurrency Safety, Atomic Checkout Transactions, Executive Profit Analytics, CSV Export & Receipt Printing."
+      },
+      details: {
+        architecture: "Java 17 (Spring Boot 3.2), Spring Security JWT, MySQL 8.0 (Pessimistic Locking 'FOR UPDATE'), Flyway Migration, React 18 + TypeScript + Tailwind CSS, Docker Compose, JUnit 5 + Mockito",
+        features: {
+          id: [
+            "🔐 Authentication & Role Guard: Spring Security JWT Stateless dengan enkripsi BCrypt & role dinamis (ADMIN, CASHIER, OWNER). Quick Demo Role Switcher pada UI.",
+            "🛒 POS & Cashier Engine: Zero-Trust Pricing backend, Concurrency Safety dengan Pessimistic Write Locking (FOR UPDATE) mencegah stok negatif, Atomic Transaction (@Transactional), & Cetak Struk Penjualan physical preview.",
+            "📦 Product & Category Management: Pengelolaan SKU unik, kalkulasi otomatis Gross Margin Profit, notifikasi stok menipis, & barcode scanner ready.",
+            "🔄 Inventory Movement & Audit Trail: Catat restock dari distributor, adjustment opname gudang / barang rusak, & jejak audit lengkap (IN, OUT, ADJUSTMENT, SALE).",
+            "📊 Executive Analytics & Sales Reports: Dashboard omset & gross profit, visual bar chart tren penjualan, Top 5 produk terlaris, & Ekspor laporan spreadsheet CSV.",
+            "🐳 Containerized & Tested: Standar industri siap deploy dengan Docker Compose & 100% pass automated test suite (JUnit 5 + Mockito)."
+          ],
+          en: [
+            "🔐 Authentication & Role Guard: Spring Security JWT Stateless with BCrypt encryption & dynamic roles (ADMIN, CASHIER, OWNER). Quick Demo Role Switcher on UI.",
+            "🛒 POS & Cashier Engine: Zero-Trust Pricing backend calculation, Concurrency Safety using Pessimistic Write Locking (FOR UPDATE) preventing negative stock, Atomic Transaction (@Transactional), and Printable physical receipt preview.",
+            "📦 Product & Category Management: Unique SKU tracking, automatic gross margin calculations, low-stock alerts, & barcode scanner compatibility.",
+            "🔄 Inventory Movement & Audit Trail: Supplier restock tracking, manual stock adjustments, and full audit logs (IN, OUT, ADJUSTMENT, SALE).",
+            "📊 Executive Analytics & Sales Reports: Revenue & profit metric cards, sales trend charts, Top 5 products, and CSV report exports.",
+            "🐳 Containerized & Tested: Production-ready setup with Docker Compose and automated JUnit 5 + Mockito test suite."
+          ]
+        },
+        credentials: [
+          { role: "ADMIN", user: "admin", pass: "password123", access: "Penuh (Master Data, Restock, Users, Audit Logs)" },
+          { role: "CASHIER", user: "kasir1", pass: "password123", access: "Operasional Kasir (POS Checkout, Katalog Produk, Cetak Struk)" },
+          { role: "OWNER", user: "owner", pass: "password123", access: "Eksekutif (Dashboard Analytics, Profit Margin, Laporan CSV)" }
+        ]
+      }
+    },
     {
       id: "proj-sfa",
       title: "SFA - Sales Force Automation",
@@ -151,6 +193,7 @@ const portfolioData = {
       logoIcon: "💼",
       logoGradient: "linear-gradient(135deg, rgba(0, 243, 255, 0.15) 0%, rgba(59, 130, 246, 0.25) 100%)",
       accentColor: "#00f3ff",
+      githubUrl: "https://github.com/Chrisyon",
       tags: ["Kotlin", "Android Native", "Java", "Eclipse", "REST API"],
       desc: {
         id: "Aplikasi Sales Force Automation (SFA) untuk efisiensi manajemen penjualan, pelacakan pesanan, dan distribusi produk. Dikembangkan dengan antarmuka Android Native (Kotlin) dan sistem Backend enterprise berbasis Java (Eclipse).",
@@ -166,6 +209,7 @@ const portfolioData = {
       logoIcon: "⌚",
       logoGradient: "linear-gradient(135deg, rgba(255, 0, 85, 0.15) 0%, rgba(255, 123, 0, 0.25) 100%)",
       accentColor: "#ff0055",
+      githubUrl: "https://github.com/Chrisyon",
       tags: ["Kotlin", "Android SDK", "IoT Sensors", "GPS Emergency", "Wearable"],
       desc: {
         id: "Perangkat wearable pintar & aplikasi Android berbasis Kotlin yang dirancang untuk mendeteksi kecelakaan secara otomatis menggunakan sensor terintegrasi, memicu peringatan darurat GPS, dan memantau kondisi pengguna secara real-time.",
@@ -181,6 +225,7 @@ const portfolioData = {
       logoIcon: "💸",
       logoGradient: "linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(6, 182, 212, 0.25) 100%)",
       accentColor: "#10b981",
+      githubUrl: "https://github.com/Chrisyon",
       tags: ["Kotlin", "Android SDK", "Clean Architecture", "Room DB", "MPAndroidChart"],
       desc: {
         id: "Aplikasi Android native pengelola keuangan & pencatat pengeluaran pribadi (ExTracker) berbasis Kotlin dengan Clean Architecture, grafik analitik pengeluaran bulanan interaktif, serta penyimpanan lokal yang aman.",
@@ -196,6 +241,7 @@ const portfolioData = {
       logoIcon: "🍎",
       logoGradient: "linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(239, 68, 68, 0.25) 100%)",
       accentColor: "#f59e0b",
+      githubUrl: "https://github.com/Chrisyon",
       tags: ["Raspberry Pi", "MicroPython / Python", "Laravel", "Azure Custom Vision", "Machine Learning"],
       desc: {
         id: "Sistem klasifikasi & pemantauan kualitas buah (Apel & Pisang) berbasis IoT dan Cloud Machine Learning. Memanfaatkan Raspberry Pi, Laravel, serta Azure Custom Vision untuk kontrol kualitas produk otomatis via image recognition.",

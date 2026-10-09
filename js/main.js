@@ -132,6 +132,7 @@ function renderSkills(filter = 'all') {
 }
 
 // 5. Render Featured Projects
+// 5. Render Featured Projects
 function renderProjects(categoryFilter = 'all') {
   const grid = document.getElementById('projects-grid');
   if (!grid) return;
@@ -142,7 +143,7 @@ function renderProjects(categoryFilter = 'all') {
 
   grid.innerHTML = filtered.map(proj => `
     <div class="glass-card project-card">
-      <div class="project-header-logo" style="background: ${proj.logoGradient};">
+      <div class="project-header-logo" style="background: ${proj.logoGradient}; cursor: pointer;" onclick="openProjectModal('${proj.id}')">
         <div class="code-logo-badge" style="border-color: ${proj.accentColor}55; box-shadow: 0 10px 30px ${proj.accentColor}25;">
           <span class="code-logo-icon">${proj.logoIcon}</span>
           <div class="code-logo-text-group">
@@ -155,8 +156,12 @@ function renderProjects(categoryFilter = 'all') {
         <div class="project-tags">
           ${proj.tags.map(tag => `<span class="tag-pill">${tag}</span>`).join('')}
         </div>
-        <h3 class="project-title">${proj.title}</h3>
+        <h3 class="project-title" style="cursor: pointer;" onclick="openProjectModal('${proj.id}')">${proj.title}</h3>
         <p class="project-desc">${proj.desc[currentLang] || proj.desc.id}</p>
+        <div class="project-footer" style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--card-border); padding-top: 16px; margin-top: auto; flex-wrap: wrap; gap: 10px;">
+          <button onclick="openProjectModal('${proj.id}')" class="btn btn-primary btn-sm" style="padding: 6px 14px; font-size: 0.82rem;">Detail & Spek 🔍</button>
+          ${proj.githubUrl ? `<a href="${proj.githubUrl}" target="_blank" class="project-link" style="font-size: 0.85rem; font-family: var(--font-mono); color: var(--accent-cyan); text-decoration: none; display: flex; align-items: center; gap: 6px;">GitHub 💻</a>` : ''}
+        </div>
       </div>
     </div>
   `).join('');
@@ -230,20 +235,91 @@ function openProjectModal(id) {
 
   const modal = document.getElementById('project-modal');
   const modalBody = document.getElementById('modal-body');
+  if (!modal || !modalBody) return;
+
   const t = portfolioData.translations[currentLang];
+  const featuresList = proj.details?.features ? (proj.details.features[currentLang] || proj.details.features.id) : null;
+
+  let credentialsHtml = '';
+  if (proj.details?.credentials) {
+    credentialsHtml = `
+      <div style="margin-top: 20px; margin-bottom: 20px;">
+        <h4 style="font-size: 0.95rem; color: var(--accent-cyan); font-family: var(--font-mono); margin-bottom: 10px;">🔑 Demo Login Credentials:</h4>
+        <div style="overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left; background: rgba(0, 0, 0, 0.3); border-radius: 8px; overflow: hidden; border: 1px solid var(--card-border);">
+            <thead>
+              <tr style="background: rgba(0, 243, 255, 0.1); border-bottom: 1px solid var(--card-border);">
+                <th style="padding: 8px 12px; color: var(--accent-cyan);">Role</th>
+                <th style="padding: 8px 12px;">Username</th>
+                <th style="padding: 8px 12px;">Password</th>
+                <th style="padding: 8px 12px;">Hak Akses</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${proj.details.credentials.map(c => `
+                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                  <td style="padding: 8px 12px; font-weight: 700; color: var(--accent-emerald);">${c.role}</td>
+                  <td style="padding: 8px 12px; font-family: var(--font-mono);">${c.user}</td>
+                  <td style="padding: 8px 12px; font-family: var(--font-mono);">${c.pass}</td>
+                  <td style="padding: 8px 12px; color: var(--text-secondary);">${c.access}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+  }
 
   modalBody.innerHTML = `
-    <div class="project-header-logo" style="margin-bottom: 24px; border-radius: var(--radius-md); height: 160px; background: ${proj.logoGradient || 'var(--gradient-primary)'};">
-      <div class="project-logo-badge" style="width: 80px; height: 80px; font-size: 2.5rem;">${proj.logoIcon || '🚀'}</div>
+    <div class="project-header-logo" style="margin-bottom: 20px; border-radius: var(--radius-md); padding: 24px; display: flex; align-items: center; justify-content: center; background: ${proj.logoGradient || 'var(--gradient-primary)'};">
+      <div class="code-logo-badge" style="border-color: ${proj.accentColor || '#00f3ff'}55; box-shadow: 0 10px 30px ${proj.accentColor || '#00f3ff'}25;">
+        <span class="code-logo-icon" style="font-size: 2.5rem;">${proj.logoIcon || '📦'}</span>
+        <div class="code-logo-text-group">
+          <span class="code-logo-main" style="color: ${proj.accentColor || '#00f3ff'}; font-size: 1.6rem;">${proj.logoBadgeText || 'PROJECT'}</span>
+          <span class="code-logo-sub">${proj.logoSubtext || ''}</span>
+        </div>
+      </div>
     </div>
+
     <div class="project-tags" style="margin-bottom: 14px;">
-      ${proj.tags.map(tag => `<span class="tag-pill">${tag}</span>`).join('')}
+      ${proj.tags.map(tag => `<span class="tag-pill" style="border-color: var(--accent-cyan); color: var(--accent-cyan);">${tag}</span>`).join('')}
     </div>
-    <h2 style="font-size: 1.8rem; margin-bottom: 12px;">${proj.title}</h2>
-    <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 24px;">${proj.desc[currentLang] || proj.desc.id}</p>
-    <div style="display: flex; gap: 14px; flex-wrap: wrap;">
-      ${proj.liveUrl && proj.liveUrl !== '#' ? `<a href="${proj.liveUrl}" target="_blank" class="btn btn-primary btn-sm">${t.btnLiveDemo} 🚀</a>` : ''}
-      <button onclick="closeModal()" class="btn btn-secondary btn-sm">Tutup Modal ✕</button>
+
+    <h2 style="font-size: 1.6rem; margin-bottom: 12px; color: var(--text-primary); font-weight: 700;">${proj.title}</h2>
+
+    <p style="color: var(--text-secondary); line-height: 1.65; margin-bottom: 20px; font-size: 0.95rem; background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-left: 3px solid ${proj.accentColor || 'var(--accent-cyan)'};">
+      ${proj.desc[currentLang] || proj.desc.id}
+    </p>
+
+    ${proj.details?.architecture ? `
+      <div style="margin-bottom: 20px;">
+        <h4 style="font-size: 0.95rem; color: var(--accent-cyan); font-family: var(--font-mono); margin-bottom: 8px;">📐 Arsitektur & Tech Stack:</h4>
+        <p style="font-size: 0.9rem; color: var(--text-primary); font-family: var(--font-mono); background: rgba(0, 0, 0, 0.4); padding: 10px 14px; border-radius: 6px; border: 1px solid var(--card-border);">
+          ${proj.details.architecture}
+        </p>
+      </div>
+    ` : ''}
+
+    ${featuresList ? `
+      <div style="margin-bottom: 20px;">
+        <h4 style="font-size: 0.95rem; color: var(--accent-cyan); font-family: var(--font-mono); margin-bottom: 10px;">🚀 Fitur Utama & Keunggulan Sistem:</h4>
+        <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px;">
+          ${featuresList.map(f => `
+            <li style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; padding-left: 8px;">
+              ${f}
+            </li>
+          `).join('')}
+        </ul>
+      </div>
+    ` : ''}
+
+    ${credentialsHtml}
+
+    <div style="display: flex; gap: 12px; justify-content: flex-end; flex-wrap: wrap; margin-top: 24px; border-top: 1px solid var(--card-border); padding-top: 16px;">
+      ${proj.githubUrl ? `<a href="${proj.githubUrl}" target="_blank" class="btn btn-primary btn-sm">Lihat Source Code di GitHub 💻</a>` : ''}
+      ${proj.liveUrl && proj.liveUrl !== '#' ? `<a href="${proj.liveUrl}" target="_blank" class="btn btn-secondary btn-sm">${t.btnLiveDemo} 🚀</a>` : ''}
+      <button onclick="closeModal()" class="btn btn-secondary btn-sm">Tutup ✕</button>
     </div>
   `;
 
