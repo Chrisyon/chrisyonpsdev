@@ -46,7 +46,7 @@
 
   .right-content {
     width: 56%;
-    padding: 80px 0;
+    padding: 48px 0 60px 0;
   }
 
   .sticky-section-header {
@@ -55,8 +55,18 @@
 }
 
 @media (max-width: 1023px) {
+  .brittany-layout {
+    flex-direction: column;
+    gap: 0;
+  }
+
   .left-sidebar {
-    padding: 60px 0 40px 0;
+    position: relative;
+    width: 100%;
+    height: auto;
+    max-height: none;
+    padding: 40px 0 24px 0;
+    overflow-y: visible;
   }
 
   .right-content {
@@ -68,16 +78,16 @@
     position: sticky;
     top: 0;
     z-index: 20;
-    background: rgba(7, 9, 14, 0.85);
+    background: rgba(7, 9, 14, 0.92);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    padding: 16px 0;
+    padding: 14px 0;
     margin-bottom: 24px;
-    border-bottom: 1px solid var(--card-border);
+    border-bottom: 1px solid rgba(56, 189, 248, 0.2);
   }
 
   .sticky-section-header h2 {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-family: var(--font-mono);
     letter-spacing: 2px;
     color: var(--accent-cyan);
@@ -1226,15 +1236,8 @@
 }
 
 @media (max-width: 992px) {
-  .hero {
-    min-height: auto;
-    padding-top: 110px;
-    padding-bottom: 60px;
-  }
-
-  .hero-grid, .contact-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
+  .contact-grid {
+    width: 100%;
   }
 
   .timeline::before {
@@ -1253,145 +1256,90 @@
 
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
 
-  .nav-menu {
-    position: fixed;
-    top: 70px;
-    left: -100%;
-    width: 100%;
-    height: calc(100vh - 70px);
-    background: var(--bg-primary);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    flex-direction: column;
-    justify-content: center;
-    gap: 24px;
-    transition: left var(--transition-normal);
-  }
-
-  .nav-menu.active {
-    left: 0;
-  }
-
-  .mobile-toggle {
-    display: block;
+  .projects-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
   }
 }
 
 @media (max-width: 768px) {
-  .hero-title {
-    font-size: 2.6rem;
-    line-height: 1.2;
-  }
-
-  .typing-container {
-    font-size: 1.15rem;
-    min-height: 3.2rem;
-    margin-bottom: 20px;
-  }
-
-  .hero-description {
-    font-size: 1.05rem;
-    margin-bottom: 28px;
-  }
-}
-
-@media (max-width: 576px) {
-  .hero {
-    padding-top: 100px;
-    padding-bottom: 40px;
-  }
-
-  .hero-content {
-    padding: 28px 20px;
-  }
-
-  .hero-title {
+  .sidebar-name {
     font-size: 2rem;
-    line-height: 1.2;
-    word-break: break-word;
   }
 
-  .typing-container {
-    font-size: 0.98rem;
-    min-height: 2.8rem;
-    margin-bottom: 20px;
-    line-height: 1.45;
+  .sidebar-role {
+    font-size: 1rem;
   }
 
-  .hero-actions {
-    flex-direction: column;
-    align-items: stretch;
-    width: 100%;
-    gap: 12px;
-    margin-bottom: 32px;
+  .sidebar-bio {
+    font-size: 0.9rem;
   }
 
-  .hero-actions .btn {
-    width: 100%;
-  }
-
-  .stats-grid { grid-template-columns: 1fr; }
-  .projects-grid { grid-template-columns: 1fr; }
-
-  .avatar-container {
-    width: 100%;
-    max-width: 320px;
-    margin: 0 auto;
-  }
-
-  .avatar-wrapper {
-    width: 260px;
-    height: 260px;
-  }
-
-  .avatar-ring {
-    width: 270px;
-    height: 270px;
-  }
-
-  .floating-badge {
-    padding: 8px 12px;
+  .skills-filter {
     gap: 8px;
   }
 
-  .badge-1 {
-    top: -10px;
-    left: 0;
+  .filter-btn {
+    padding: 6px 14px;
+    font-size: 0.78rem;
   }
 
-  .badge-2 {
-    bottom: -10px;
-    right: 0;
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
   }
 
-  .badge-icon {
-    font-size: 1.2rem;
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
 
-  .badge-text span {
-    font-size: 0.7rem;
-  }
-
-  .badge-text strong {
-    font-size: 0.85rem;
-  }
-
-  .code-logo-badge {
-    padding: 12px 16px;
+  .contact-info-list {
+    grid-template-columns: 1fr;
     gap: 12px;
   }
 
-  .code-logo-main {
-    font-size: 1.25rem;
+  .modal-container {
+    width: 94%;
+    padding: 24px 18px;
+    max-height: 85vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .sidebar-name {
+    font-size: 1.75rem;
+  }
+
+  .avatar-ring-sm {
+    width: 68px;
+    height: 68px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .stat-card {
+    padding: 16px 14px;
+  }
+
+  .stat-number {
+    font-size: 2rem;
   }
 
   .back-to-top {
-    left: 20px;
-    bottom: 20px;
-    width: 40px;
-    height: 40px;
-    font-size: 1rem;
+    left: 16px;
+    bottom: 16px;
+    width: 42px;
+    height: 42px;
   }
 }
