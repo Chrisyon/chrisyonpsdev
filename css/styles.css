@@ -82,13 +82,14 @@
 }
 
 /* Light Theme Variables (Platinum Pearl Light Mode) */
+/* Light Theme Variables (Platinum Pearl Light Mode) */
 [data-theme="light"] {
   --bg-primary: #f8fafc;
   --bg-secondary: #f1f5f9;
   --bg-tertiary: #e2e8f0;
   --card-bg: rgba(255, 255, 255, 0.9);
   --card-border: rgba(15, 23, 42, 0.08);
-  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-bg: rgba(255, 255, 255, 0.92);
   --glass-border: rgba(2, 132, 199, 0.2);
   
   --text-primary: #0f172a;
@@ -99,11 +100,87 @@
   --accent-gold: #d97706;
   --accent-violet: #7c3aed;
   
-  --glow-cyan: 0 0 20px rgba(2, 132, 199, 0.25);
-  --glow-gold: 0 0 20px rgba(217, 119, 6, 0.25);
-  --glow-violet: 0 0 20px rgba(124, 58, 237, 0.25);
-  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.06);
-  --shadow-card-hover: 0 20px 40px -15px rgba(2, 132, 199, 0.18);
+  --glow-cyan: 0 0 20px rgba(2, 132, 199, 0.2);
+  --glow-gold: 0 0 20px rgba(217, 119, 6, 0.2);
+  --glow-violet: 0 0 20px rgba(124, 58, 237, 0.2);
+  --shadow-card: 0 10px 30px -10px rgba(15, 23, 42, 0.06);
+  --shadow-card-hover: 0 20px 40px -15px rgba(2, 132, 199, 0.15);
+}
+
+/* Light Mode Specific Component Overrides */
+[data-theme="light"] .glass-card,
+[data-theme="light"] .stat-card,
+[data-theme="light"] .skill-card,
+[data-theme="light"] .project-card,
+[data-theme="light"] .info-item {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+}
+
+[data-theme="light"] .glass-card:hover,
+[data-theme="light"] .stat-card:hover,
+[data-theme="light"] .skill-card:hover,
+[data-theme="light"] .project-card:hover,
+[data-theme="light"] .info-item:hover {
+  background: #ffffff;
+  border-color: rgba(2, 132, 199, 0.3);
+  box-shadow: 0 12px 30px rgba(2, 132, 199, 0.12);
+}
+
+[data-theme="light"] .code-logo-badge {
+  background: rgba(241, 245, 249, 0.95);
+  border: 1px solid rgba(15, 23, 42, 0.12);
+}
+
+[data-theme="light"] .code-logo-sub {
+  color: #64748b;
+}
+
+[data-theme="light"] .project-header-logo {
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+[data-theme="light"] .tag-pill {
+  background: rgba(2, 132, 199, 0.08);
+  border: 1px solid rgba(2, 132, 199, 0.2);
+  color: #0284c7;
+}
+
+[data-theme="light"] .filter-btn,
+[data-theme="light"] .lang-btn,
+[data-theme="light"] .theme-btn {
+  background: rgba(15, 23, 42, 0.04);
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  color: #334155;
+}
+
+[data-theme="light"] .filter-btn:hover,
+[data-theme="light"] .filter-btn.active,
+[data-theme="light"] .lang-btn:hover,
+[data-theme="light"] .theme-btn:hover {
+  background: rgba(2, 132, 199, 0.12);
+  border-color: #0284c7;
+  color: #0284c7;
+  box-shadow: 0 0 15px rgba(2, 132, 199, 0.18);
+}
+
+[data-theme="light"] .btn-primary {
+  background: rgba(2, 132, 199, 0.12);
+  color: #0284c7;
+  border: 1px solid rgba(2, 132, 199, 0.35);
+}
+
+[data-theme="light"] .btn-primary:hover {
+  background: #0284c7;
+  color: #ffffff;
+}
+
+[data-theme="light"] #sidebar-role-typing {
+  background: linear-gradient(90deg, #0284c7 0%, #7c3aed 50%, #d97706 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Color Accent Theme Overrides */

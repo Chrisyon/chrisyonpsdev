@@ -752,7 +752,7 @@
   font-family: var(--font-mono);
   font-size: 0.68rem;
   letter-spacing: 1.5px;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.7);
   text-transform: uppercase;
   margin-top: 3px;
 }
