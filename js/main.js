@@ -350,11 +350,20 @@ function initNavigation() {
   const sidebarLinks = document.querySelectorAll('.sidebar-link');
   const sections = document.querySelectorAll('section.content-section[id]');
 
+  const leftSidebar = document.querySelector('.left-sidebar');
+
   window.addEventListener('scroll', () => {
     if (window.scrollY > 300) {
       backToTop?.classList.add('visible');
     } else {
       backToTop?.classList.remove('visible');
+    }
+
+    // Toggle left sidebar shrink zoom on scroll
+    if (window.scrollY > 80) {
+      leftSidebar?.classList.add('is-scrolled');
+    } else {
+      leftSidebar?.classList.remove('is-scrolled');
     }
 
     // Scroll spy active tab link

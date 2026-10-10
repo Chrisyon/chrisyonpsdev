@@ -106,6 +106,19 @@
   padding-left: 6px;
   padding-right: 6px;
   overflow: visible;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: top left;
+}
+
+@media (min-width: 1024px) {
+  .left-sidebar.is-scrolled .sidebar-profile {
+    transform: scale(0.92);
+    opacity: 0.95;
+  }
+
+  .left-sidebar.is-scrolled .avatar-ring-sm {
+    transform: scale(0.88);
+  }
 }
 
 .avatar-ring-sm {
@@ -121,11 +134,11 @@
   position: relative;
   z-index: 10;
   flex-shrink: 0;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .avatar-ring-sm:hover {
-  transform: scale(1.04);
+  transform: scale(1.06);
 }
 
 .sidebar-avatar-img {
