@@ -451,6 +451,70 @@ function initScrollReveal() {
   revealElements.forEach(el => observer.observe(el));
 }
 
+// 11. Laptop / Desktop Keyboard Section Navigation (ArrowUp & ArrowDown)
+function initKeyboardNav() {
+  const sections = Array.from(document.querySelectorAll('section.content-section[id]'));
+  if (!sections.length) return;
+
+  let isScrolling = false;
+
+  window.addEventListener('keydown', (e) => {
+    // Only activate on laptop/desktop screens (width >= 1024px)
+    if (window.innerWidth < 1024) return;
+
+    // Ignore if user is typing in form inputs, textareas, or modal is active
+    const activeEl = document.activeElement;
+    const isInput = activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA' || activeEl.isContentEditable);
+    const modalActive = document.getElementById('project-modal')?.classList.contains('active');
+
+    if (isInput || modalActive) return;
+
+    if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+      e.preventDefault();
+      navigateSection('down');
+    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+      e.preventDefault();
+      navigateSection('up');
+    }
+  });
+
+  function navigateSection(direction) {
+    if (isScrolling) return;
+
+    const scrollY = window.pageYOffset + 120;
+    let currentIndex = 0;
+
+    sections.forEach((sec, idx) => {
+      const top = sec.offsetTop;
+      const height = sec.offsetHeight;
+      if (scrollY >= top - 80 && scrollY < top + height) {
+        currentIndex = idx;
+      }
+    });
+
+    let targetIndex = currentIndex;
+    if (direction === 'down') {
+      targetIndex = Math.min(currentIndex + 1, sections.length - 1);
+    } else if (direction === 'up') {
+      targetIndex = Math.max(currentIndex - 1, 0);
+    }
+
+    if (sections[targetIndex]) {
+      isScrolling = true;
+      const targetTop = sections[targetIndex].offsetTop - 20;
+
+      window.scrollTo({
+        top: targetTop,
+        behavior: 'smooth'
+      });
+
+      setTimeout(() => {
+        isScrolling = false;
+      }, 500);
+    }
+  }
+}
+
 // Initialization on DOM Ready
 document.addEventListener('DOMContentLoaded', () => {
   setTheme(currentTheme);
@@ -462,6 +526,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderProjects();
   renderTimeline();
   initNavigation();
+  initKeyboardNav();
 
   // Initialize Typing Effect for Sidebar Role
   if (portfolioData.typingRoles) {
