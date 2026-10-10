@@ -61,7 +61,7 @@ class ParticleNetwork {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     
     // Check Theme accent color for particle tint
-    const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-cyan').trim() || '#00f3ff';
+    const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-cyan').trim() || '#00ff9d';
     
     for (let i = 0; i < this.particles.length; i++) {
       let p = this.particles[i];

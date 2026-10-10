@@ -4,7 +4,7 @@
 
 let currentLang = localStorage.getItem('appLang') || 'id';
 let currentTheme = localStorage.getItem('appTheme') || 'dark';
-let currentAccent = localStorage.getItem('appAccent') || 'cyan';
+let currentAccent = localStorage.getItem('appAccent') || 'emerald';
 
 // 1. Language Manager
 function setLanguage(lang) {
