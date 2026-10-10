@@ -381,6 +381,49 @@ function initNavigation() {
   });
 }
 
+// 9. Stat Counter Up Animation
+function animateCounters() {
+  const statNumbers = document.querySelectorAll('.stat-number[data-count]');
+  statNumbers.forEach(el => {
+    if (el.classList.contains('counted')) return;
+    const target = parseInt(el.getAttribute('data-count'), 10);
+    const suffix = el.getAttribute('data-suffix') || '';
+    let current = 0;
+    const step = Math.max(1, Math.floor(target / 30));
+    el.classList.add('counted');
+
+    const timer = setInterval(() => {
+      current += step;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
+      }
+      el.textContent = current + suffix;
+    }, 35);
+  });
+}
+
+// 10. Interactive 3D Card Tilt Effect
+function init3DTilt() {
+  const cards = document.querySelectorAll('.project-card, .stat-card, .skill-card, .info-item');
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * -5;
+      const rotateY = ((x - centerX) / centerX) * 5;
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)`;
+    });
+  });
+}
+
 // Intersection Observer for Smooth Scroll Animations across all pages/sections
 function initScrollReveal() {
   const revealElements = document.querySelectorAll(
@@ -395,6 +438,9 @@ function initScrollReveal() {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('in-view');
+        if (entry.target.classList.contains('stat-card') || entry.target.querySelector('.stat-number')) {
+          animateCounters();
+        }
       }
     });
   }, {
@@ -422,8 +468,11 @@ document.addEventListener('DOMContentLoaded', () => {
     new TypingEffect('sidebar-role-typing', portfolioData.typingRoles);
   }
 
-  // Initialize Scroll Reveal Animations across all sections
-  setTimeout(initScrollReveal, 100);
+  // Initialize Scroll Reveal Animations & 3D Tilt Effect
+  setTimeout(() => {
+    initScrollReveal();
+    init3DTilt();
+  }, 100);
 
   // Skill filter listeners
   document.querySelectorAll('#skills-filter .filter-btn').forEach(btn => {
@@ -431,7 +480,10 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('#skills-filter .filter-btn').forEach(b => b.classList.remove('active'));
       e.target.classList.add('active');
       renderSkills(e.target.getAttribute('data-filter'));
-      setTimeout(initScrollReveal, 50);
+      setTimeout(() => {
+        initScrollReveal();
+        init3DTilt();
+      }, 50);
     });
   });
 
@@ -441,7 +493,10 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('#projects-filter .filter-btn').forEach(b => b.classList.remove('active'));
       e.target.classList.add('active');
       renderProjects(e.target.getAttribute('data-filter'));
-      setTimeout(initScrollReveal, 50);
+      setTimeout(() => {
+        initScrollReveal();
+        init3DTilt();
+      }, 50);
     });
   });
 
