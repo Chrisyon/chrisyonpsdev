@@ -145,11 +145,11 @@ function renderProjects(categoryFilter = 'all') {
 
   grid.innerHTML = filtered.map(proj => `
     <div class="glass-card project-card">
-      <div class="project-header-logo" style="background: ${proj.logoGradient}; cursor: pointer;" onclick="openProjectModal('${proj.id}')">
-        <div class="code-logo-badge" style="border-color: ${proj.accentColor}55; box-shadow: 0 10px 30px ${proj.accentColor}25;">
-          <span class="code-logo-icon">${proj.logoIcon}</span>
+      <div class="project-header-logo" style="cursor: pointer;" onclick="openProjectModal('${proj.id}')">
+        <div class="code-logo-badge" style="border-color: ${proj.accentColor || '#38bdf8'}33;">
+          <span class="code-logo-icon" style="color: ${proj.accentColor || '#38bdf8'};">${proj.logoIcon}</span>
           <div class="code-logo-text-group">
-            <span class="code-logo-main" style="color: ${proj.accentColor};">${proj.logoBadgeText}</span>
+            <span class="code-logo-main" style="color: ${proj.accentColor || '#38bdf8'};">${proj.logoBadgeText}</span>
             <span class="code-logo-sub">${proj.logoSubtext}</span>
           </div>
         </div>
@@ -160,7 +160,7 @@ function renderProjects(categoryFilter = 'all') {
         </div>
         <h3 class="project-title" style="cursor: pointer;" onclick="openProjectModal('${proj.id}')">${proj.title}</h3>
         <p class="project-desc">${proj.desc[currentLang] || proj.desc.id}</p>
-        <div class="project-footer" style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--card-border); padding-top: 16px; margin-top: auto; flex-wrap: wrap; gap: 10px;">
+        <div class="project-footer" style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(255, 255, 255, 0.06); padding-top: 16px; margin-top: auto; flex-wrap: wrap; gap: 10px;">
           <button onclick="openProjectModal('${proj.id}')" class="btn btn-primary btn-sm" style="padding: 6px 14px; font-size: 0.82rem;">Detail Project & Spec</button>
           ${proj.githubUrl ? `<a href="${proj.githubUrl}" target="_blank" class="project-link" style="font-size: 0.85rem; font-family: var(--font-mono); color: var(--accent-cyan); text-decoration: none; display: flex; align-items: center; gap: 6px;">GitHub Source</a>` : ''}
         </div>
@@ -274,11 +274,11 @@ function openProjectModal(id) {
   }
 
   modalBody.innerHTML = `
-    <div class="project-header-logo" style="margin-bottom: 20px; border-radius: var(--radius-md); padding: 24px; display: flex; align-items: center; justify-content: center; background: ${proj.logoGradient || 'var(--gradient-primary)'};">
-      <div class="code-logo-badge" style="border-color: ${proj.accentColor || '#38bdf8'}55; box-shadow: 0 10px 30px ${proj.accentColor || '#38bdf8'}25;">
-        <span class="code-logo-icon" style="font-size: 1.4rem; font-weight: 800; font-family: var(--font-mono); color: ${proj.accentColor};">${proj.logoIcon || 'PROJ'}</span>
+    <div class="project-header-logo" style="margin-bottom: 20px; border-radius: var(--radius-md); padding: 24px; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08);">
+      <div class="code-logo-badge" style="border-color: ${proj.accentColor || '#38bdf8'}33;">
+        <span class="code-logo-icon" style="font-size: 1.4rem; font-weight: 800; font-family: var(--font-mono); color: ${proj.accentColor || '#38bdf8'};">${proj.logoIcon || 'PROJ'}</span>
         <div class="code-logo-text-group">
-          <span class="code-logo-main" style="color: ${proj.accentColor || '#38bdf8'}; font-size: 1.6rem;">${proj.logoBadgeText || 'PROJECT'}</span>
+          <span class="code-logo-main" style="color: ${proj.accentColor || '#38bdf8'}; font-size: 1.4rem;">${proj.logoBadgeText || 'PROJECT'}</span>
           <span class="code-logo-sub">${proj.logoSubtext || ''}</span>
         </div>
       </div>
