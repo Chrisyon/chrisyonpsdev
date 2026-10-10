@@ -9,9 +9,9 @@ class ParticleNetwork {
     this.ctx = this.canvas.getContext('2d');
     
     this.particles = [];
-    this.particleCount = 70;
-    this.maxDistance = 120;
-    this.mouse = { x: null, y: null, radius: 160 };
+    this.particleCount = 45;
+    this.maxDistance = 90;
+    this.mouse = { x: null, y: null, radius: 140 };
 
     this.init();
     this.animate();
@@ -25,10 +25,10 @@ class ParticleNetwork {
       this.particles.push({
         x: Math.random() * this.canvas.width,
         y: Math.random() * this.canvas.height,
-        vx: (Math.random() - 0.5) * 0.8,
-        vy: (Math.random() - 0.5) * 0.8,
-        radius: Math.random() * 2 + 1,
-        alpha: Math.random() * 0.5 + 0.3
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.4,
+        radius: Math.random() * 1.2 + 0.8,
+        alpha: Math.random() * 0.3 + 0.1
       });
     }
   }
@@ -37,9 +37,9 @@ class ParticleNetwork {
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
     if (window.innerWidth < 768) {
-      this.particleCount = 35;
+      this.particleCount = 20;
     } else {
-      this.particleCount = 70;
+      this.particleCount = 45;
     }
   }
 
@@ -90,7 +90,7 @@ class ParticleNetwork {
           this.ctx.moveTo(p.x, p.y);
           this.ctx.lineTo(this.mouse.x, this.mouse.y);
           this.ctx.strokeStyle = accentColor;
-          this.ctx.globalAlpha = (1 - dist / this.mouse.radius) * 0.4;
+          this.ctx.globalAlpha = (1 - dist / this.mouse.radius) * 0.12;
           this.ctx.stroke();
         }
       }
@@ -107,7 +107,7 @@ class ParticleNetwork {
           this.ctx.moveTo(p.x, p.y);
           this.ctx.lineTo(p2.x, p2.y);
           this.ctx.strokeStyle = accentColor;
-          this.ctx.globalAlpha = (1 - dist / this.maxDistance) * 0.15;
+          this.ctx.globalAlpha = (1 - dist / this.maxDistance) * 0.05;
           this.ctx.stroke();
         }
       }

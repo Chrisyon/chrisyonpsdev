@@ -27,7 +27,7 @@ function copyToClipboard(text) {
   navigator.clipboard.writeText(text).then(() => {
     const currentLang = localStorage.getItem('appLang') || 'id';
     const msg = portfolioData.translations[currentLang].copiedToast || "Berhasil disalin!";
-    showToast(msg, '📋');
+    showToast(msg, '✓');
   }).catch(err => {
     console.error('Gagal menyalin:', err);
   });
@@ -60,7 +60,7 @@ function initContactForm() {
 
       const currentLang = localStorage.getItem('appLang') || 'id';
       const msg = portfolioData.translations[currentLang].formSuccessToast || "Pesan Anda berhasil terkirim!";
-      showToast(msg, '🎉');
+      showToast(msg, '✓');
     }, 1200);
   });
 }

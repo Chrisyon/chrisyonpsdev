@@ -12,9 +12,9 @@ function setLanguage(lang) {
   localStorage.setItem('appLang', lang);
   document.documentElement.setAttribute('lang', lang);
 
-  const btn = document.getElementById('lang-toggle');
-  if (btn) {
-    btn.innerHTML = lang === 'id' ? '🌐 ID' : '🌐 EN';
+  const langText = document.getElementById('lang-text');
+  if (langText) {
+    langText.textContent = lang.toUpperCase();
   }
 
   // Translate all data-i18n elements
@@ -40,7 +40,7 @@ function setLanguage(lang) {
 function toggleLanguage() {
   const nextLang = currentLang === 'id' ? 'en' : 'id';
   setLanguage(nextLang);
-  showToast(nextLang === 'id' ? 'Bahasa diganti ke Bahasa Indonesia' : 'Language switched to English', '🌐');
+  showToast(nextLang === 'id' ? 'Bahasa diganti ke Bahasa Indonesia' : 'Language switched to English', '✓');
 }
 
 // 2. Theme & Accent Color Manager
@@ -50,7 +50,9 @@ function setTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
   const themeIcon = document.getElementById('theme-icon');
   if (themeIcon) {
-    themeIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
+    themeIcon.innerHTML = theme === 'dark' 
+      ? `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`
+      : `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
   }
 }
 
@@ -159,8 +161,8 @@ function renderProjects(categoryFilter = 'all') {
         <h3 class="project-title" style="cursor: pointer;" onclick="openProjectModal('${proj.id}')">${proj.title}</h3>
         <p class="project-desc">${proj.desc[currentLang] || proj.desc.id}</p>
         <div class="project-footer" style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--card-border); padding-top: 16px; margin-top: auto; flex-wrap: wrap; gap: 10px;">
-          <button onclick="openProjectModal('${proj.id}')" class="btn btn-primary btn-sm" style="padding: 6px 14px; font-size: 0.82rem;">Detail & Spek 🔍</button>
-          ${proj.githubUrl ? `<a href="${proj.githubUrl}" target="_blank" class="project-link" style="font-size: 0.85rem; font-family: var(--font-mono); color: var(--accent-cyan); text-decoration: none; display: flex; align-items: center; gap: 6px;">GitHub 💻</a>` : ''}
+          <button onclick="openProjectModal('${proj.id}')" class="btn btn-primary btn-sm" style="padding: 6px 14px; font-size: 0.82rem;">Detail Project & Spec</button>
+          ${proj.githubUrl ? `<a href="${proj.githubUrl}" target="_blank" class="project-link" style="font-size: 0.85rem; font-family: var(--font-mono); color: var(--accent-cyan); text-decoration: none; display: flex; align-items: center; gap: 6px;">GitHub Source</a>` : ''}
         </div>
       </div>
     </div>
@@ -184,7 +186,7 @@ function renderTimeline() {
         <div class="timeline-company">${item.company}</div>
         <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 8px; line-height: 1.5;">${item.desc[currentLang] || item.desc.id}</p>
         <div class="cert-click-hint">
-          <span>📜 Klik untuk lihat Sertifikat 🔍</span>
+          <span>View Certificate File &rarr;</span>
         </div>
       </div>
     </div>
@@ -207,7 +209,7 @@ function openCertModal(id) {
       <div>
         <span class="tag-pill" style="border-color: var(--accent-cyan); color: var(--accent-cyan); font-size: 0.8rem; margin-bottom: 8px; display: inline-block;">${item.badge || 'Sertifikat Resmi'}</span>
         <h2 style="font-size: 1.4rem; color: var(--text-primary); margin-bottom: 4px; font-weight: 700;">${item.role}</h2>
-        <p style="color: var(--accent-emerald); font-family: var(--font-mono); font-size: 0.9rem; font-weight: 600;">🏢 ${item.company} • ${item.period}</p>
+        <p style="color: var(--accent-cyan); font-family: var(--font-mono); font-size: 0.9rem; font-weight: 600;">${item.company} • ${item.period}</p>
       </div>
     </div>
 
@@ -215,13 +217,13 @@ function openCertModal(id) {
       <a href="${encodedImg}" target="_blank" title="Klik untuk memperbesar sertifikat di tab baru">
         <img src="${encodedImg}" alt="${item.certTitle}" style="max-width: 100%; max-height: 60vh; border-radius: 8px; object-fit: contain; box-shadow: 0 10px 30px rgba(0,0,0,0.6); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
       </a>
-      <div style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 10px; font-family: var(--font-mono);">💡 Klik pada gambar sertifikat di atas untuk membuka ukuran penuh</div>
+      <div style="font-size: 0.82rem; color: var(--text-secondary); margin-top: 10px; font-family: var(--font-mono);">Klik pada gambar sertifikat untuk membuka ukuran penuh</div>
     </div>
 
     <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 24px; font-size: 0.95rem; background: rgba(255,255,255,0.03); padding: 14px; border-radius: 8px; border-left: 3px solid var(--accent-cyan);">${item.desc[currentLang] || item.desc.id}</p>
 
     <div style="display: flex; gap: 12px; justify-content: flex-end; flex-wrap: wrap;">
-      <a href="${encodedImg}" target="_blank" class="btn btn-primary btn-sm">Buka Gambar Resolusi Penuh 🔍</a>
+      <a href="${encodedImg}" target="_blank" class="btn btn-primary btn-sm">Buka Gambar Full Resolution</a>
       <button onclick="closeModal()" class="btn btn-secondary btn-sm">Tutup ✕</button>
     </div>
   `;
@@ -244,11 +246,11 @@ function openProjectModal(id) {
   if (proj.details?.credentials) {
     credentialsHtml = `
       <div style="margin-top: 20px; margin-bottom: 20px;">
-        <h4 style="font-size: 0.95rem; color: var(--accent-cyan); font-family: var(--font-mono); margin-bottom: 10px;">🔑 Demo Login Credentials:</h4>
+        <h4 style="font-size: 0.95rem; color: var(--accent-cyan); font-family: var(--font-mono); margin-bottom: 10px;">Demo Login Credentials:</h4>
         <div style="overflow-x: auto;">
           <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left; background: rgba(0, 0, 0, 0.3); border-radius: 8px; overflow: hidden; border: 1px solid var(--card-border);">
             <thead>
-              <tr style="background: rgba(0, 243, 255, 0.1); border-bottom: 1px solid var(--card-border);">
+              <tr style="background: rgba(56, 189, 248, 0.1); border-bottom: 1px solid var(--card-border);">
                 <th style="padding: 8px 12px; color: var(--accent-cyan);">Role</th>
                 <th style="padding: 8px 12px;">Username</th>
                 <th style="padding: 8px 12px;">Password</th>
@@ -258,7 +260,7 @@ function openProjectModal(id) {
             <tbody>
               ${proj.details.credentials.map(c => `
                 <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                  <td style="padding: 8px 12px; font-weight: 700; color: var(--accent-emerald);">${c.role}</td>
+                  <td style="padding: 8px 12px; font-weight: 700; color: var(--accent-cyan);">${c.role}</td>
                   <td style="padding: 8px 12px; font-family: var(--font-mono);">${c.user}</td>
                   <td style="padding: 8px 12px; font-family: var(--font-mono);">${c.pass}</td>
                   <td style="padding: 8px 12px; color: var(--text-secondary);">${c.access}</td>
@@ -273,10 +275,10 @@ function openProjectModal(id) {
 
   modalBody.innerHTML = `
     <div class="project-header-logo" style="margin-bottom: 20px; border-radius: var(--radius-md); padding: 24px; display: flex; align-items: center; justify-content: center; background: ${proj.logoGradient || 'var(--gradient-primary)'};">
-      <div class="code-logo-badge" style="border-color: ${proj.accentColor || '#00f3ff'}55; box-shadow: 0 10px 30px ${proj.accentColor || '#00f3ff'}25;">
-        <span class="code-logo-icon" style="font-size: 2.5rem;">${proj.logoIcon || '📦'}</span>
+      <div class="code-logo-badge" style="border-color: ${proj.accentColor || '#38bdf8'}55; box-shadow: 0 10px 30px ${proj.accentColor || '#38bdf8'}25;">
+        <span class="code-logo-icon" style="font-size: 1.4rem; font-weight: 800; font-family: var(--font-mono); color: ${proj.accentColor};">${proj.logoIcon || 'PROJ'}</span>
         <div class="code-logo-text-group">
-          <span class="code-logo-main" style="color: ${proj.accentColor || '#00f3ff'}; font-size: 1.6rem;">${proj.logoBadgeText || 'PROJECT'}</span>
+          <span class="code-logo-main" style="color: ${proj.accentColor || '#38bdf8'}; font-size: 1.6rem;">${proj.logoBadgeText || 'PROJECT'}</span>
           <span class="code-logo-sub">${proj.logoSubtext || ''}</span>
         </div>
       </div>
@@ -294,7 +296,7 @@ function openProjectModal(id) {
 
     ${proj.details?.architecture ? `
       <div style="margin-bottom: 20px;">
-        <h4 style="font-size: 0.95rem; color: var(--accent-cyan); font-family: var(--font-mono); margin-bottom: 8px;">📐 Arsitektur & Tech Stack:</h4>
+        <h4 style="font-size: 0.95rem; color: var(--accent-cyan); font-family: var(--font-mono); margin-bottom: 8px;">Arsitektur & Tech Stack:</h4>
         <p style="font-size: 0.9rem; color: var(--text-primary); font-family: var(--font-mono); background: rgba(0, 0, 0, 0.4); padding: 10px 14px; border-radius: 6px; border: 1px solid var(--card-border);">
           ${proj.details.architecture}
         </p>
@@ -303,11 +305,11 @@ function openProjectModal(id) {
 
     ${featuresList ? `
       <div style="margin-bottom: 20px;">
-        <h4 style="font-size: 0.95rem; color: var(--accent-cyan); font-family: var(--font-mono); margin-bottom: 10px;">🚀 Fitur Utama & Keunggulan Sistem:</h4>
+        <h4 style="font-size: 0.95rem; color: var(--accent-cyan); font-family: var(--font-mono); margin-bottom: 10px;">Fitur Utama & Keunggulan Sistem:</h4>
         <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px;">
           ${featuresList.map(f => `
             <li style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; padding-left: 8px;">
-              ${f}
+              • ${f}
             </li>
           `).join('')}
         </ul>
@@ -317,8 +319,8 @@ function openProjectModal(id) {
     ${credentialsHtml}
 
     <div style="display: flex; gap: 12px; justify-content: flex-end; flex-wrap: wrap; margin-top: 24px; border-top: 1px solid var(--card-border); padding-top: 16px;">
-      ${proj.githubUrl ? `<a href="${proj.githubUrl}" target="_blank" class="btn btn-primary btn-sm">Lihat Source Code di GitHub 💻</a>` : ''}
-      ${proj.liveUrl && proj.liveUrl !== '#' ? `<a href="${proj.liveUrl}" target="_blank" class="btn btn-secondary btn-sm">${t.btnLiveDemo} 🚀</a>` : ''}
+      ${proj.githubUrl ? `<a href="${proj.githubUrl}" target="_blank" class="btn btn-primary btn-sm">GitHub Source Code</a>` : ''}
+      ${proj.liveUrl && proj.liveUrl !== '#' ? `<a href="${proj.liveUrl}" target="_blank" class="btn btn-secondary btn-sm">${t.btnLiveDemo}</a>` : ''}
       <button onclick="closeModal()" class="btn btn-secondary btn-sm">Tutup ✕</button>
     </div>
   `;
