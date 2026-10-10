@@ -243,6 +243,40 @@
 .content-section {
   margin-bottom: 96px;
   scroll-margin-top: 96px;
+  position: relative;
+}
+
+/* Subtle Elegant Section Divider Lines */
+.content-section:not(#about) {
+  padding-top: 48px;
+}
+
+.content-section:not(#about)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg, 
+    transparent 0%, 
+    rgba(56, 189, 248, 0.22) 20%, 
+    rgba(139, 92, 246, 0.22) 50%, 
+    rgba(56, 189, 248, 0.22) 80%, 
+    transparent 100%
+  );
+}
+
+[data-theme="light"] .content-section:not(#about)::before {
+  background: linear-gradient(
+    90deg, 
+    transparent 0%, 
+    rgba(2, 132, 199, 0.18) 20%, 
+    rgba(124, 58, 237, 0.18) 50%, 
+    rgba(2, 132, 199, 0.18) 80%, 
+    transparent 100%
+  );
 }
 
 .section-lead-text {
