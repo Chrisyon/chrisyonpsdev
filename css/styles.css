@@ -465,17 +465,26 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: var(--radius-full);
 }
 
-/* Scroll Reveal & Dynamic Zoom Animations */
+/* Scroll Reveal & Dynamic Zoom Animations for Right Content */
 .scroll-reveal {
   opacity: 0;
-  transform: scale(0.92) translateY(32px);
-  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: scale(0.85) translateY(45px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.4s ease,
+              box-shadow 0.4s ease;
   will-change: opacity, transform;
 }
 
 .scroll-reveal.in-view {
   opacity: 1;
-  transform: scale(1) translateY(0);
+  transform: scale(1.02) translateY(0);
+}
+
+.scroll-reveal.in-view:hover {
+  transform: scale(1.06) translateY(-6px) !important;
+  border-color: rgba(56, 189, 248, 0.4) !important;
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.7), 0 0 25px rgba(56, 189, 248, 0.2) !important;
 }
 
 #sidebar-role-typing {

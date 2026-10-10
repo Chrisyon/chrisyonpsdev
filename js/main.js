@@ -433,7 +433,7 @@ function init3DTilt() {
   });
 }
 
-// Intersection Observer for Smooth Scroll Animations across all pages/sections
+// Intersection Observer for Smooth Scale-Up Entrance Animations across Right Content
 function initScrollReveal() {
   const revealElements = document.querySelectorAll(
     'section.content-section, .glass-card, .stat-card, .skill-card, .project-card, .timeline-item, .contact-card-link, .sticky-section-header'
@@ -441,6 +441,15 @@ function initScrollReveal() {
 
   revealElements.forEach(el => {
     el.classList.add('scroll-reveal');
+  });
+
+  // Staggered delay for grid elements for a wave zoom effect
+  const grids = document.querySelectorAll('.skills-grid, .projects-grid, .stats-grid, .contact-info-list');
+  grids.forEach(grid => {
+    const items = grid.querySelectorAll('.scroll-reveal');
+    items.forEach((item, idx) => {
+      item.style.transitionDelay = `${(idx % 4) * 0.09}s`;
+    });
   });
 
   const observer = new IntersectionObserver((entries) => {
@@ -453,8 +462,8 @@ function initScrollReveal() {
       }
     });
   }, {
-    threshold: 0.08,
-    rootMargin: '0px 0px -30px 0px'
+    threshold: 0.05,
+    rootMargin: '0px 0px -20px 0px'
   });
 
   revealElements.forEach(el => observer.observe(el));
