@@ -9,9 +9,10 @@ class ParticleNetwork {
     this.ctx = this.canvas.getContext('2d');
     
     this.particles = [];
-    this.particleCount = 45;
-    this.maxDistance = 90;
-    this.mouse = { x: null, y: null, radius: 140 };
+    this.particleCount = 50;
+    this.maxDistance = 100;
+    this.mouse = { x: null, y: null, radius: 150 };
+    this.time = 0;
 
     this.init();
     this.animate();
@@ -27,8 +28,9 @@ class ParticleNetwork {
         y: Math.random() * this.canvas.height,
         vx: (Math.random() - 0.5) * 0.4,
         vy: (Math.random() - 0.5) * 0.4,
-        radius: Math.random() * 1.2 + 0.8,
-        alpha: Math.random() * 0.3 + 0.1
+        baseRadius: Math.random() * 1.2 + 0.8,
+        phase: Math.random() * Math.PI * 2,
+        alpha: Math.random() * 0.35 + 0.15
       });
     }
   }
@@ -37,9 +39,9 @@ class ParticleNetwork {
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
     if (window.innerWidth < 768) {
-      this.particleCount = 20;
+      this.particleCount = 25;
     } else {
-      this.particleCount = 45;
+      this.particleCount = 50;
     }
   }
 
@@ -59,6 +61,7 @@ class ParticleNetwork {
 
   animate() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.time += 0.02;
     
     // Check Theme accent color for particle tint
     const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-cyan').trim() || '#38bdf8';
@@ -66,17 +69,20 @@ class ParticleNetwork {
     for (let i = 0; i < this.particles.length; i++) {
       let p = this.particles[i];
 
-      p.x += p.vx;
-      p.y += p.vy;
+      p.x += p.vx + Math.sin(this.time + p.phase) * 0.15;
+      p.y += p.vy + Math.cos(this.time + p.phase) * 0.15;
 
       if (p.x < 0 || p.x > this.canvas.width) p.vx *= -1;
       if (p.y < 0 || p.y > this.canvas.height) p.vy *= -1;
 
-      // Draw particle dot
+      // Floating pulsing radius
+      let pulseRadius = Math.max(0.5, p.baseRadius + Math.sin(this.time * 1.5 + p.phase) * 0.5);
+
+      // Draw particle dot with soft glow
       this.ctx.beginPath();
-      this.ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      this.ctx.arc(p.x, p.y, pulseRadius, 0, Math.PI * 2);
       this.ctx.fillStyle = accentColor;
-      this.ctx.globalAlpha = p.alpha;
+      this.ctx.globalAlpha = p.alpha + Math.sin(this.time + p.phase) * 0.08;
       this.ctx.fill();
 
       // Mouse interactivity line
@@ -90,7 +96,7 @@ class ParticleNetwork {
           this.ctx.moveTo(p.x, p.y);
           this.ctx.lineTo(this.mouse.x, this.mouse.y);
           this.ctx.strokeStyle = accentColor;
-          this.ctx.globalAlpha = (1 - dist / this.mouse.radius) * 0.12;
+          this.ctx.globalAlpha = (1 - dist / this.mouse.radius) * 0.18;
           this.ctx.stroke();
         }
       }
@@ -107,7 +113,7 @@ class ParticleNetwork {
           this.ctx.moveTo(p.x, p.y);
           this.ctx.lineTo(p2.x, p2.y);
           this.ctx.strokeStyle = accentColor;
-          this.ctx.globalAlpha = (1 - dist / this.maxDistance) * 0.05;
+          this.ctx.globalAlpha = (1 - dist / this.maxDistance) * 0.07;
           this.ctx.stroke();
         }
       }
