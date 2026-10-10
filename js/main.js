@@ -331,21 +331,27 @@ function closeModal() {
   if (modal) modal.classList.remove('active');
 }
 
+// Dynamic Spotlight Mouse Follower (Brittany Chiang Signature)
+function initSpotlight() {
+  const spotlight = document.getElementById('spotlight');
+  if (!spotlight) return;
+
+  window.addEventListener('mousemove', (e) => {
+    const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-cyan').trim() || '#38bdf8';
+    spotlight.style.background = `radial-gradient(600px circle at ${e.clientX}px ${e.clientY}px, ${accentColor}18, transparent 80%)`;
+  });
+}
+
 // 8. Navigation & Scroll Spy
 function initNavigation() {
-  const header = document.getElementById('header');
   const backToTop = document.getElementById('back-to-top');
-  const navLinks = document.querySelectorAll('.nav-link');
-  const sections = document.querySelectorAll('section[id]');
-  const mobileToggle = document.getElementById('mobile-toggle');
-  const navMenu = document.getElementById('nav-menu');
+  const sidebarLinks = document.querySelectorAll('.sidebar-link');
+  const sections = document.querySelectorAll('section.content-section[id]');
 
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      header?.classList.add('scrolled');
+    if (window.scrollY > 300) {
       backToTop?.classList.add('visible');
     } else {
-      header?.classList.remove('scrolled');
       backToTop?.classList.remove('visible');
     }
 
@@ -353,11 +359,11 @@ function initNavigation() {
     let scrollY = window.pageYOffset;
     sections.forEach(current => {
       const sectionHeight = current.offsetHeight;
-      const sectionTop = current.offsetTop - 120;
+      const sectionTop = current.offsetTop - 150;
       const sectionId = current.getAttribute('id');
 
-      if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-        navLinks.forEach(link => {
+      if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+        sidebarLinks.forEach(link => {
           link.classList.remove('active');
           if (link.getAttribute('href') === `#${sectionId}`) {
             link.classList.add('active');
@@ -366,17 +372,6 @@ function initNavigation() {
       }
     });
   });
-
-  // Mobile menu toggle
-  if (mobileToggle && navMenu) {
-    mobileToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('active');
-    });
-
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => navMenu.classList.remove('active'));
-    });
-  }
 
   // Back to top click
   backToTop?.addEventListener('click', () => {
@@ -390,7 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setAccent(currentAccent);
   setLanguage(currentLang);
   
-  new TypingEffect('typing-text', portfolioData.typingRoles);
+  initSpotlight();
   renderSkills();
   renderProjects();
   renderTimeline();
